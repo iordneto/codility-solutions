@@ -35,10 +35,23 @@ all but one of the values in A occur an even number of times.
 
 function solution(A) {
   // write your code in JavaScript (Node.js 8.9.4)
-  for (let i = 0; i < A.length; i++) {
-    const firstIndexOf = A.indexOf(A[i]);
-    const lastIndexOf = A.lastIndexOf(A[i]);
+  // write your code in JavaScript (Node.js 8.9.4)
+  const makeIntegerOccurrencesMap = (map, nextInteger) => {
+    const isMissingKey = (key) => map[key] === undefined;
 
-    if (firstIndexOf !== -1 && firstIndexOf === lastIndexOf) return A[i];
-  }
+    if (isMissingKey(nextInteger)) {
+      map[nextInteger] = 0;
+    }
+
+    ++map[nextInteger];
+
+    return map;
+  };
+
+  const isOdd = (number) => number % 2 !== 0;
+  const integerOccurrencesMap = A.reduce(makeIntegerOccurrencesMap, {});
+
+  return +Object.keys(integerOccurrencesMap).find((integer) =>
+    isOdd(integerOccurrencesMap[integer])
+  );
 }
