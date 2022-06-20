@@ -50,12 +50,25 @@ each element of array A is an integer within the range [1..1,000,000,000].
 
 function solution(A) {
   // write your code in JavaScript (Node.js 8.9.4)
-  const result = A.reduce((a, b) => a * b);
+  let max = 0;
+  for (let i = 0; i < A.length; i++) {
+    if (A[i] > max) max = A[i];
+  }
 
-  const size = A.length;
-  let expected = 1;
-  for (let i = expected; i <= size; i++) expected *= i;
+  if (A.length !== max) return 0;
 
-  if (result === expected) return 1;
-  return 0;
+  let Indexes = Array(max).fill(0);
+
+  for (let i = 0; i < A.length; i++) {
+    Indexes[A[i] - 1]++;
+  }
+
+  result = Indexes.indexOf(0);
+  console.log(Indexes);
+
+  if (result === -1) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
